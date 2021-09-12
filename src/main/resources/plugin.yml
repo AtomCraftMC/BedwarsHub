@@ -1,0 +1,22 @@
+name: BedwarsHub
+version: ${project.version}
+main: me.deadlight.bedwarshub.BedwarsHub
+authors: [ Dead_Light ]
+description: BedwarsHub jedis server and info handler
+softdepend:
+  - PlaceholderAPI
+commands:
+  bh:
+    description: adding and removing
+  solo:
+    description: solo bedwars map
+  double:
+    aliases:
+      - duo
+    description: double bedwars map
+  triple:
+    description: triple bedwars map
+  squad:
+    description: squad bedwars map
+  random:
+    description: entekhabe map betore automatic
