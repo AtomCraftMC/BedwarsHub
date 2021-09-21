@@ -1,6 +1,7 @@
 package me.deadlight.bedwarshub;
 
 import me.deadlight.bedwarshub.Interactions.*;
+import me.deadlight.bedwarshub.Objects.Game;
 import me.deadlight.bedwarshub.Objects.Placeholder;
 import me.deadlight.bedwarshub.OldWay.Commands;
 import me.deadlight.bedwarshub.OldWay.SocketServer;
@@ -12,6 +13,10 @@ import org.json.simple.parser.ParseException;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public final class BedwarsHub extends JavaPlugin {
 
     private static BedwarsHub bedwarsHub;
@@ -21,6 +26,7 @@ public final class BedwarsHub extends JavaPlugin {
     public SocketServer socketServer;
     public static JedisPool pool;
     public static String serverName;
+    public static List<String> gameServers = new ArrayList<>();
 
     @Override
     public void onEnable() {
@@ -28,6 +34,7 @@ public final class BedwarsHub extends JavaPlugin {
         // Plugin startup logic
         logConsole(Utils.prefix + " &eStarting BedwarsHub");
         saveDefaultConfig();
+        gameServers = getConfig().getStringList("gameservers");
         getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         getServer().getPluginManager().registerEvents(new LeavingListener(), this);
         Utils.InitializeItems();
@@ -80,11 +87,14 @@ public final class BedwarsHub extends JavaPlugin {
                     j = pool.getResource();
                     // If you want to use a password, use
                     j.auth("piazcraftmc");
-                    String arenas = j.get("bedwars1");
-                    String arenas2 = j.get("bedwars2");
                     try {
-                        ProcessData.PorcessIncomingData(arenas, "bedwars1");
-                        ProcessData.PorcessIncomingData(arenas2, "bedwars2");
+                        List<Game> finalGameServers = new ArrayList<>();
+                        for (String gameServer : gameServers) {
+                            String arenas = j.get(gameServer);
+                            List<Game> games = ProcessData.PorcessIncomingData(arenas, gameServer);
+                            finalGameServers.addAll(games);
+                        }
+                        Utils.sortFinalGameServers(finalGameServers);
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }

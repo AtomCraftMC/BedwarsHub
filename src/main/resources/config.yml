@@ -1,2 +1,7 @@
 data: none
 servername: blobby1
+gameservers:
+  - bedwars1
+  - bedwars2
+  - bedwars3
+  - bedwars4

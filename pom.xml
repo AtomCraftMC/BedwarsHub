@@ -134,7 +134,7 @@
             <groupId>sv.file14</groupId>
             <artifactId>procosmetics</artifactId>
             <version>12.6</version>
-            <systemPath>D:/Desktop/ProCosmetics.jar</systemPath>
+            <systemPath>C:/Users/Amirreza/IdeaProjects/BedwarsHub/lib/ProCosmetics.jar</systemPath>
             <scope>system</scope>
         </dependency>
         <dependency>

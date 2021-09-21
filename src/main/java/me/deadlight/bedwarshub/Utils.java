@@ -208,6 +208,31 @@ public class Utils {
         }
     }
 
+    public static void sortFinalGameServers(List<Game> games) {
+
+        List<Game> soloGames = new ArrayList<>();
+        List<Game> doubleGames = new ArrayList<>();
+        List<Game> tripleGames = new ArrayList<>();
+        List<Game> squadGames = new ArrayList<>();
+
+        for (Game game : games) {
+            if (game.gameType == 1) {
+                soloGames.add(game);
+            } else if (game.gameType == 2) {
+                doubleGames.add(game);
+            } else if (game.gameType == 3) {
+                tripleGames.add(game);
+            } else if (game.gameType == 4) {
+                squadGames.add(game);
+            }
+        }
+        Utils.soloArenasList = soloGames;
+        Utils.doubleArenasList = doubleGames;
+        Utils.tripleArenasList = tripleGames;
+        Utils.squadArenasList = squadGames;
+
+    }
+
 
 
 
