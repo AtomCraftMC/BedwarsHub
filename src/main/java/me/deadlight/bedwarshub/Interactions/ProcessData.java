@@ -27,6 +27,7 @@ public class ProcessData {
                 List<List<String>> arenasList = (List<List<String>>) json.get("data");
                 for (List<String> arena : arenasList) {
                     Game game = new Game(arena.get(0), Integer.parseInt(arena.get(1)), Integer.parseInt(arena.get(2)), Integer.parseInt(arena.get(3)), arena.get(4), Integer.parseInt(arena.get(5)), Integer.parseInt(arena.get(6)), new ArrayList<>(), arena.get(8));
+                    thegames.add(game);
                 }
                 return thegames;
 

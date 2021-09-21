@@ -26,7 +26,7 @@ public final class BedwarsHub extends JavaPlugin {
     public SocketServer socketServer;
     public static JedisPool pool;
     public static String serverName;
-    public static List<String> gameServers = new ArrayList<>();
+    public static List<String> gameServers;
 
     @Override
     public void onEnable() {
