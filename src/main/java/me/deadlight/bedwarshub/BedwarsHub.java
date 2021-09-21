@@ -91,6 +91,9 @@ public final class BedwarsHub extends JavaPlugin {
                         List<Game> finalGameServers = new ArrayList<>();
                         for (String gameServer : gameServers) {
                             String arenas = j.get(gameServer);
+                            if (arenas == null) {
+                                continue;
+                            }
                             List<Game> games = ProcessData.PorcessIncomingData(arenas, gameServer);
                             finalGameServers.addAll(games);
                         }
