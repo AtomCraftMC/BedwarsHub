@@ -2,6 +2,7 @@ package me.deadlight.bedwarshub.Objects;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -33,4 +34,5 @@ public class Game implements Comparable<Game> {
     public int compareTo(Game other) {
         return Integer.compare(this.currentcount, other.currentcount);
     }
+
 }

@@ -8,7 +8,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkEffectMeta;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.material.Bed;
 import org.json.simple.JSONObject;
 import redis.clients.jedis.Jedis;
 import sv.file14.procosmetics.cosmetic.CosmeticCategoryType;
@@ -36,11 +35,9 @@ public class Utils {
     public static int tripleCount = 0;
     public static int squadCount = 0;
 
+    public static HashMap<String, Integer> serversCount = new HashMap<>();
     public static String prefix = "&b[&cBedWarsHub&b]&r ";
-
     public static HashMap<Integer, Location> map = new HashMap<>();
-
-
     public static String convertLocToString(Location loci) {
 
         int x = loci.getBlockX();
@@ -63,6 +60,14 @@ public class Utils {
         return new Location(Bukkit.getWorld(splited.get(3)), Integer.parseInt(splited.get(0)) + 0.5, Integer.parseInt(splited.get(1)), Integer.parseInt(splited.get(2)) + 0.5, Float.parseFloat(splited.get(5)), Float.parseFloat(splited.get(4)));
     }
 
+    public static void addCountToHashMap(HashMap<String, Integer> oldHashMap, String server, int newCount) {
+        if (oldHashMap.containsKey(server)) {
+            int theoldvalue = oldHashMap.get(server);
+            oldHashMap.put(server, theoldvalue + newCount);
+        } else {
+            oldHashMap.put(server, newCount);
+        }
+    }
 
     public static Gui soloArenaGui;
 
@@ -162,12 +167,12 @@ public class Utils {
         String arrowName = "null";
         String deathName = "null";
         try{
-            arrowName = sv.file14.procosmetics.api.API.getUser(player).getCosmetic(CosmeticCategoryType.ARROW_EFFECTS).getCosmeticType().getVariableName();
+            arrowName = sv.file14.procosmetics.api.ProCosmeticsAPI.getUser(player).getCosmetic(CosmeticCategoryType.ARROW_EFFECTS).getCosmeticType().getVariableName();
         } catch (Exception ex) {
 
         }
         try {
-            deathName = sv.file14.procosmetics.api.API.getUser(player).getCosmetic(CosmeticCategoryType.DEATH_EFFECTS).getCosmeticType().getVariableName();
+            deathName = sv.file14.procosmetics.api.ProCosmeticsAPI.getUser(player).getCosmetic(CosmeticCategoryType.DEATH_EFFECTS).getCosmeticType().getVariableName();
         } catch (Exception ex) {
 
         }

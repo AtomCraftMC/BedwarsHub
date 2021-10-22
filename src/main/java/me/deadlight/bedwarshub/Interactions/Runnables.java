@@ -30,9 +30,11 @@ public class Runnables {
 
                 try {
                     int finalSoloCount = 0;
+                    HashMap<String, Integer> serverCounts = new HashMap<>();
                     Map<Game, Integer> arenasWithPlayers = new LinkedHashMap<>();
                     for (Game game : Utils.soloArenasList) {
                         finalSoloCount += game.currentcount;
+                        Utils.addCountToHashMap(serverCounts, game.server, game.currentcount);
                         if (!game.state.equalsIgnoreCase("ingame")) {
                             arenasWithPlayers.put(game, game.currentcount);
                         }
@@ -43,11 +45,27 @@ public class Runnables {
                             .stream()
                             .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                             .forEachOrdered(x -> sortedMap.put(x.getKey(), x.getValue()));
+                    //the new balancing formulight for GUIs
+                    List<Game> startingGames = new ArrayList<>(sortedMap.keySet());
+                    List<Game> zeroGames = new ArrayList<>(sortedMap.keySet());
+                    zeroGames.removeIf(theArena -> theArena.currentcount > 0);
+                    startingGames.removeIf(theArena -> theArena.currentcount == 0);
+                    Collections.shuffle(zeroGames);
+                    Comparator<Game> compareByServerCount = new Comparator<Game>() {
+                        @Override
+                        public int compare(Game arena1, Game arena2) {
+                            int arena1servercount = serverCounts.get(arena1.server);
+                            int arena2servercount = serverCounts.get(arena2.server);
+                            return Integer.compare(arena1servercount, arena2servercount);
+                        }
+                    };
+                    zeroGames.sort(compareByServerCount);
+                    startingGames.addAll(zeroGames);
 
 
                     //soloGui
                     int count = 11;
-                    for (Game game : sortedMap.keySet()) {
+                    for (Game game : startingGames) {
                         if (count == 16) {
                             continue;
                         }
@@ -138,7 +156,7 @@ public class Runnables {
                 }catch (Exception e) {
                     e.printStackTrace();
                 }
-                
+
 
             }
         }, 0, 5);
@@ -151,9 +169,11 @@ public class Runnables {
 
                 try {
                     int finalDoubleCount = 0;
+                    HashMap<String, Integer> serverCounts = new HashMap<>();
                     Map<Game, Integer> arenasWithPlayers = new LinkedHashMap<>();
                     for (Game game : Utils.doubleArenasList) {
                         finalDoubleCount += game.currentcount;
+                        Utils.addCountToHashMap(serverCounts, game.server, game.currentcount);
                         if (!game.state.equalsIgnoreCase("ingame")) {
                             arenasWithPlayers.put(game, game.currentcount);
                         }
@@ -164,11 +184,27 @@ public class Runnables {
                             .stream()
                             .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                             .forEachOrdered(x -> sortedMap.put(x.getKey(), x.getValue()));
+                    //the new balancing formulight for GUIs
+                    List<Game> startingGames = new ArrayList<>(sortedMap.keySet());
+                    List<Game> zeroGames = new ArrayList<>(sortedMap.keySet());
+                    zeroGames.removeIf(theArena -> theArena.currentcount > 0);
+                    startingGames.removeIf(theArena -> theArena.currentcount == 0);
+                    Collections.shuffle(zeroGames);
+                    Comparator<Game> compareByServerCount = new Comparator<Game>() {
+                        @Override
+                        public int compare(Game arena1, Game arena2) {
+                            int arena1servercount = serverCounts.get(arena1.server);
+                            int arena2servercount = serverCounts.get(arena2.server);
+                            return Integer.compare(arena1servercount, arena2servercount);
+                        }
+                    };
+                    zeroGames.sort(compareByServerCount);
+                    startingGames.addAll(zeroGames);
 
 
                     //soloGui
                     int count = 11;
-                    for (Game game : sortedMap.keySet()) {
+                    for (Game game : startingGames) {
                         if (count == 16) {
                             continue;
                         }
@@ -273,9 +309,11 @@ public class Runnables {
 
                 try {
                     int finalTripleCount = 0;
+                    HashMap<String, Integer> serverCounts = new HashMap<>();
                     Map<Game, Integer> arenasWithPlayers = new LinkedHashMap<>();
                     for (Game game : Utils.tripleArenasList) {
                         finalTripleCount += game.currentcount;
+                        Utils.addCountToHashMap(serverCounts, game.server, game.currentcount);
                         if (!game.state.equalsIgnoreCase("ingame")) {
                             arenasWithPlayers.put(game, game.currentcount);
                         }
@@ -286,11 +324,27 @@ public class Runnables {
                             .stream()
                             .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                             .forEachOrdered(x -> sortedMap.put(x.getKey(), x.getValue()));
+                    //the new balancing formulight for GUIs
+                    List<Game> startingGames = new ArrayList<>(sortedMap.keySet());
+                    List<Game> zeroGames = new ArrayList<>(sortedMap.keySet());
+                    zeroGames.removeIf(theArena -> theArena.currentcount > 0);
+                    startingGames.removeIf(theArena -> theArena.currentcount == 0);
+                    Collections.shuffle(zeroGames);
+                    Comparator<Game> compareByServerCount = new Comparator<Game>() {
+                        @Override
+                        public int compare(Game arena1, Game arena2) {
+                            int arena1servercount = serverCounts.get(arena1.server);
+                            int arena2servercount = serverCounts.get(arena2.server);
+                            return Integer.compare(arena1servercount, arena2servercount);
+                        }
+                    };
+                    zeroGames.sort(compareByServerCount);
+                    startingGames.addAll(zeroGames);
 
 
                     //soloGui
                     int count = 11;
-                    for (Game game : sortedMap.keySet()) {
+                    for (Game game : startingGames) {
                         if (count == 16) {
                             continue;
                         }
@@ -395,9 +449,11 @@ public class Runnables {
 
                 try {
                     int finalSquadCount = 0;
+                    HashMap<String, Integer> serverCounts = new HashMap<>();
                     Map<Game, Integer> arenasWithPlayers = new LinkedHashMap<>();
                     for (Game game : Utils.squadArenasList) {
                         finalSquadCount += game.currentcount;
+                        Utils.addCountToHashMap(serverCounts, game.server, game.currentcount);
                         if (!game.state.equalsIgnoreCase("ingame")) {
                             arenasWithPlayers.put(game, game.currentcount);
                         }
@@ -408,11 +464,26 @@ public class Runnables {
                             .stream()
                             .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                             .forEachOrdered(x -> sortedMap.put(x.getKey(), x.getValue()));
-
+                    //the new balancing formulight for GUIs
+                    List<Game> startingGames = new ArrayList<>(sortedMap.keySet());
+                    List<Game> zeroGames = new ArrayList<>(sortedMap.keySet());
+                    zeroGames.removeIf(theArena -> theArena.currentcount > 0);
+                    startingGames.removeIf(theArena -> theArena.currentcount == 0);
+                    Collections.shuffle(zeroGames);
+                    Comparator<Game> compareByServerCount = new Comparator<Game>() {
+                        @Override
+                        public int compare(Game arena1, Game arena2) {
+                            int arena1servercount = serverCounts.get(arena1.server);
+                            int arena2servercount = serverCounts.get(arena2.server);
+                            return Integer.compare(arena1servercount, arena2servercount);
+                        }
+                    };
+                    zeroGames.sort(compareByServerCount);
+                    startingGames.addAll(zeroGames);
 
                     //soloGui
                     int count = 11;
-                    for (Game game : sortedMap.keySet()) {
+                    for (Game game : startingGames) {
                         if (count == 16) {
                             continue;
                         }
@@ -508,6 +579,8 @@ public class Runnables {
             }
         }, 0, 20);
     }
+
+
 
 
 
