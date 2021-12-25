@@ -1,5 +1,6 @@
 data: none
 servername: blobby1
+ip: 127.0.0.1
 gameservers:
   - bedwars1
   - bedwars2

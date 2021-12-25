@@ -20,3 +20,5 @@ commands:
     description: squad bedwars map
   random:
     description: entekhabe map betore automatic
+  adminpanel:
+    description: admins command to open and see arenas

@@ -1,7 +1,6 @@
 package me.deadlight.bedwarshub.Interactions;
 
 import me.deadlight.bedwarshub.Objects.Game;
-import me.deadlight.bedwarshub.Utils;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;

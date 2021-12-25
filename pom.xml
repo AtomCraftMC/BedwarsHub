@@ -130,13 +130,13 @@
             <artifactId>triumph-gui</artifactId>
             <version>3.0.3</version> <!-- replace version here -->
         </dependency>
-        <dependency>
-            <groupId>sv.file14</groupId>
-            <artifactId>procosmetics</artifactId>
-            <version>12.6</version>
-            <systemPath>C:/Users/Amirreza/IdeaProjects/BedwarsHub/lib/ProCosmetics.jar</systemPath>
-            <scope>system</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>sv.file14</groupId>-->
+<!--            <artifactId>procosmetics</artifactId>-->
+<!--            <version>12.6</version>-->
+<!--            <systemPath>C:/Users/Amirreza/IdeaProjects/BedwarsHub/lib/ProCosmetics.jar</systemPath>-->
+<!--            <scope>system</scope>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>me.clip</groupId>
             <artifactId>placeholderapi</artifactId>

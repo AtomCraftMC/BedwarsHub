@@ -1,6 +1,7 @@
 package me.deadlight.bedwarshub;
 
 import dev.triumphteam.gui.guis.Gui;
+import dev.triumphteam.gui.guis.PaginatedGui;
 import me.deadlight.bedwarshub.Objects.Game;
 import me.deadlight.bedwarshub.Objects.TimerObject;
 import org.bukkit.*;
@@ -10,7 +11,6 @@ import org.bukkit.inventory.meta.FireworkEffectMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.json.simple.JSONObject;
 import redis.clients.jedis.Jedis;
-import sv.file14.procosmetics.cosmetic.CosmeticCategoryType;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -20,7 +20,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Utils {
-
     public static List<String> outGoingPlayers = new ArrayList<>();
     public static String colorify(String txt) {
         return ChatColor.translateAlternateColorCodes('&', txt);
@@ -30,6 +29,7 @@ public class Utils {
     public static List<Game> doubleArenasList = new ArrayList<>();
     public static List<Game> tripleArenasList = new ArrayList<>();
     public static List<Game> squadArenasList = new ArrayList<>();
+    public static List<Game> customGames = new ArrayList<>();
     public static int soloCount = 0;
     public static int doubleCount = 0;
     public static int tripleCount = 0;
@@ -77,6 +77,8 @@ public class Utils {
 
     public static Gui squadArenaGui;
 
+    public static PaginatedGui adminPanelGui;
+
     public static ItemStack fullGameItem;
 
     public static ItemStack startingGameItem;
@@ -84,6 +86,8 @@ public class Utils {
     public static ItemStack openGameItem;
 
     public static ItemStack noGameItem;
+
+    public static ItemStack ingameItem;
 
     public static void InitializeItems() {
 
@@ -107,6 +111,13 @@ public class Utils {
         FireworkEffect aa3 = FireworkEffect.builder().withColor(Color.LIME).build();
         metaFw3.setEffect(aa3);
         openGameItem.setItemMeta(metaFw3);
+        //
+        ingameItem = new ItemStack(Material.FIREWORK_CHARGE, 1);
+        ItemMeta ingameItemMeta = ingameItem.getItemMeta();
+        FireworkEffectMeta metaFw4 = (FireworkEffectMeta) ingameItemMeta;
+        FireworkEffect aa4 = FireworkEffect.builder().withColor(Color.PURPLE).build();
+        metaFw4.setEffect(aa4);
+        ingameItem.setItemMeta(metaFw4);
         //barrier for not available
         noGameItem = new ItemStack(Material.BARRIER, 1);
         ItemMeta noGameMeta = noGameItem.getItemMeta();
@@ -116,6 +127,7 @@ public class Utils {
         lore.add(Utils.colorify("&7Kami sabr konid ^_^"));
         noGameMeta.setLore(lore);
         noGameItem.setItemMeta(noGameMeta);
+        //5.63.10.106
 
     }
 
@@ -152,6 +164,12 @@ public class Utils {
         );
         Utils.squadArenaGui = gui4;
 
+        PaginatedGui adminGui = new PaginatedGui(6, Utils.colorify("&cAdmin Arenas Panel"));
+        adminGui.setDefaultClickAction(event -> {
+            event.setCancelled(true);
+        });
+        Utils.adminPanelGui = adminGui;
+
     }
 
     public static void sendPlayerJoinRequest(Player player, int gameid, String server) {
@@ -166,16 +184,16 @@ public class Utils {
         //jsonObject.put("player", player.getName());
         String arrowName = "null";
         String deathName = "null";
-        try{
-            arrowName = sv.file14.procosmetics.api.ProCosmeticsAPI.getUser(player).getCosmetic(CosmeticCategoryType.ARROW_EFFECTS).getCosmeticType().getVariableName();
-        } catch (Exception ex) {
-
-        }
-        try {
-            deathName = sv.file14.procosmetics.api.ProCosmeticsAPI.getUser(player).getCosmetic(CosmeticCategoryType.DEATH_EFFECTS).getCosmeticType().getVariableName();
-        } catch (Exception ex) {
-
-        }
+//        try{
+//            arrowName = sv.file14.procosmetics.api.ProCosmeticsAPI.getUser(player).getCosmetic(CosmeticCategoryType.ARROW_EFFECTS).getCosmeticType().getVariableName();
+//        } catch (Exception ex) {
+//
+//        }
+//        try {
+//            deathName = sv.file14.procosmetics.api.ProCosmeticsAPI.getUser(player).getCosmetic(CosmeticCategoryType.DEATH_EFFECTS).getCosmeticType().getVariableName();
+//        } catch (Exception ex) {
+//
+//        }
 
         Utils.outGoingPlayers.add(player.getName());
         TimerObject timerObject = new TimerObject(player);
@@ -219,6 +237,7 @@ public class Utils {
         List<Game> doubleGames = new ArrayList<>();
         List<Game> tripleGames = new ArrayList<>();
         List<Game> squadGames = new ArrayList<>();
+        List<Game> customGames = new ArrayList<>();
 
         for (Game game : games) {
             if (game.gameType == 1) {
@@ -229,12 +248,16 @@ public class Utils {
                 tripleGames.add(game);
             } else if (game.gameType == 4) {
                 squadGames.add(game);
+            } else {
+                customGames.add(game);
             }
         }
         Utils.soloArenasList = soloGames;
         Utils.doubleArenasList = doubleGames;
         Utils.tripleArenasList = tripleGames;
         Utils.squadArenasList = squadGames;
+        Utils.customGames = customGames;
+
 
     }
 

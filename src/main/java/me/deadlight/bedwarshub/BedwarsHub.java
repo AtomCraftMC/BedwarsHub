@@ -1,10 +1,7 @@
 package me.deadlight.bedwarshub;
-
 import me.deadlight.bedwarshub.Interactions.*;
 import me.deadlight.bedwarshub.Objects.Game;
 import me.deadlight.bedwarshub.Objects.Placeholder;
-import me.deadlight.bedwarshub.OldWay.Commands;
-import me.deadlight.bedwarshub.OldWay.SocketServer;
 import org.bukkit.Bukkit;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.HumanEntity;
@@ -14,7 +11,6 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public final class BedwarsHub extends JavaPlugin {
@@ -23,7 +19,6 @@ public final class BedwarsHub extends JavaPlugin {
     public static BedwarsHub getInstance() {
         return bedwarsHub;
     }
-    public SocketServer socketServer;
     public static JedisPool pool;
     public static String serverName;
     public static List<String> gameServers;
@@ -44,12 +39,12 @@ public final class BedwarsHub extends JavaPlugin {
         //LoadSignData signData = new LoadSignData();
         //signData.loadData();
 
-        getServer().getPluginCommand("bh").setExecutor(new Commands());
         getServer().getPluginCommand("solo").setExecutor(new SoloCommand());
         getServer().getPluginCommand("double").setExecutor(new DoubleCommand());
         getServer().getPluginCommand("triple").setExecutor(new TripleCommand());
         getServer().getPluginCommand("squad").setExecutor(new SquadCommand());
         getServer().getPluginCommand("random").setExecutor(new RandomCommand());
+        getServer().getPluginCommand("adminpanel").setExecutor(new StaffGuiCommand());
         if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new Placeholder(this).register();
         }
@@ -57,7 +52,8 @@ public final class BedwarsHub extends JavaPlugin {
         logConsole(Utils.prefix + " &bSTARTING REDIS");
 //        SocketServer server = new SocketServer();
 //        this.socketServer = server;
-        pool = new JedisPool("127.0.0.1", 6379);
+        pool = new JedisPool(getConfig().getString("ip"), 6379);
+        Bukkit.broadcastMessage("tst");
         serverName = getConfig().getString("servername");
         startThePool();
         logConsole(Utils.prefix + " &aRedis connection finished");
